@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime,Boolean
 from database import Base
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
 class User(Base):
     __tablename__ = "users"
@@ -15,6 +16,10 @@ class User(Base):
     updated_at = Column(DateTime,default=datetime.now)
     is_staff = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
+
+    products = relationship("Products", back_populates="user")
+    cart = relationship("Cart", back_populates="user", uselist=False)
+    orders = relationship("Order", back_populates="user")
 
     def __repr__(self):
         return self.username
