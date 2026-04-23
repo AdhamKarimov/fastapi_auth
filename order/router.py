@@ -12,11 +12,7 @@ router = APIRouter()
 
 
 @router.post("/add_cart", status_code=status.HTTP_201_CREATED)
-def add_to_cart(
-    order: OrderBase,
-    db: Session = Depends(get_db),
-    Authorize: AuthJWT = Depends()
-):
+def add_to_cart(order: OrderBase,db: Session = Depends(get_db),Authorize: AuthJWT = Depends()):
     try:
         Authorize.jwt_required()
         current_user_id = Authorize.get_jwt_subject()
